@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/raw/image4.png" type="Texture" id=1]
+
+[node name="SkyBackground" type="ParallaxLayer"]
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.905682, 0.687404 )
+texture = ExtResource( 1 )
+centered = false

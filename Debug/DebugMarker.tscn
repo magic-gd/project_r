@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="AnimatedTexture" id=1]
+
+[node name="DebugMarker" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = -0.647079
+margin_top = -0.647072
+margin_right = 1.35292
+margin_bottom = 1.35293
+__meta__ = {
+"_edit_use_anchors_": false
+}
