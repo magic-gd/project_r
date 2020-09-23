@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/tri_crystal_1.wav-dd9fdc2b026c45f4e7fb09de8925d6ba.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/tri_crystal_1.wav"
+dest_files=[ "res://.import/tri_crystal_1.wav-dd9fdc2b026c45f4e7fb09de8925d6ba.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

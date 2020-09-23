@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/PowerUps/PowerUp.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/TempAssets/balloon_powerup.png" type="Texture" id=2]
+
+[node name="Balloon" instance=ExtResource( 1 )]
+type = "balloon"
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
