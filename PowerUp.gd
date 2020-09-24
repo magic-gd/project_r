@@ -10,4 +10,4 @@ func _ready():
 
 
 func _after_pickup(body):
-	body.add_powerup(type, timeout)
+	body.add_powerup(type, timeout, self)

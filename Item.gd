@@ -7,4 +7,4 @@ func _ready():
 
 
 func _after_pickup(body):
-	body.add_item(type)
+	body.add_item(type, self)

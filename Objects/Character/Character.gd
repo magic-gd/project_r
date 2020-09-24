@@ -2,9 +2,15 @@ extends KinematicBody2D
 class_name PlayerController
 # The player object
 
+
+class PlayerState:
+	var food_count = 0
+	var spawn = Vector2(0,0)
+
 const UP = Vector2(0, -1)
 const GRAVITY = 20
-const BALLOON_SPEED = 5
+const MAX_BALLOON_SPEED = -500
+const BALLOON_ACCELERATION = -10
 const MAX_SPEED = 350
 const ACCELERATION = 120
 const JUMP_HEIGHT = 700
@@ -42,6 +48,9 @@ var lives = 3
 var food_count = 0
 var powerup_timeout = 0
 var powerup_time_since_pickup = 0
+var last_state = PlayerState.new()
+var items_since_last_spawn : Array
+var powerups_since_last_spawn : Array
 
 var game_mode = GAME_MODE_DEFAULT
 
@@ -54,8 +63,13 @@ func _ready():
 	
 	timeout_label = get_parent().get_node("CanvasLayer/HUD/TimeoutLabel")
 	
-	add_powerup("default", 0) # this is bad
+	add_powerup("default", 0, null) # this is bad
 
+func _process(delta):
+	if(Input.is_action_pressed("reset_scene")):
+		get_tree().reload_current_scene()
+	elif(Input.is_action_pressed("respawn_player")):
+		reset_state()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -100,7 +114,7 @@ func _physics_process(delta):
 		
 	elif(game_mode == GAME_MODE_BALLOON):
 		
-		motion.y -= BALLOON_SPEED
+		motion.y = max(MAX_BALLOON_SPEED, motion.y + BALLOON_ACCELERATION)
 		spriteBuffer = ""
 		if Input.is_action_pressed("move_right"):
 			idle = false
@@ -172,7 +186,7 @@ func _handle_powerups(delta):
 		powerup_time_since_pickup += delta
 		var remaining_time = powerup_timeout - powerup_time_since_pickup
 		if(remaining_time < 0):
-			add_powerup("default", 0)
+			add_powerup("default", 0, null)
 		else:
 			timeout_label.text = String(int(remaining_time))
 		
@@ -238,9 +252,12 @@ func _setDebugMarker(pos: Vector2):
 	debugMarker.global_position = pos
 
 
-func add_powerup(type : String, timeout : int):
+func add_powerup(type : String, timeout : int, powerup : Node):
 	
 	$BalloonCollisionShape2D2.disabled = true
+	
+	if(powerup != null):
+		powerups_since_last_spawn.append(powerup)
 	
 	if(type == "default"):
 		game_mode = GAME_MODE_DEFAULT
@@ -266,7 +283,38 @@ func add_powerup(type : String, timeout : int):
 	powerup_timeout = timeout
 		
 
-func add_item(type : String):
+func add_item(type : String, item : Node):
+	if(item != null):
+		items_since_last_spawn.append(item)
+	
 	if(type == "apple"):
 		food_count += 1
 		
+func save_state(spawn : Vector2):
+	var current_state = PlayerState.new()
+	current_state.food_count = food_count
+	current_state.spawn = spawn
+	last_state = current_state
+	
+	for item in items_since_last_spawn:
+		item.queue_free()
+		
+	items_since_last_spawn.clear()
+
+func reset_state():
+	food_count = last_state.food_count
+	position = last_state.spawn
+	motion = Vector2(0, 0)
+	
+	for item in items_since_last_spawn:
+		item.reactivate()
+		
+	items_since_last_spawn.clear()
+	
+	for powerup in powerups_since_last_spawn:
+		powerup.reactivate()
+		
+	powerups_since_last_spawn.clear()
+	
+	add_powerup("default", 0, null)
+	

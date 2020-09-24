@@ -3,7 +3,6 @@
 [ext_resource path="res://Levels/Backgrounds/TowerBackground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/TileSets/wall_chunk_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Character/Character.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Levels/NonGameplayInput.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Sounds/jam_medival_2.ogg" type="AudioStream" id=5]
 [ext_resource path="res://GUI/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Levels/TileSets/stone_platform_tileset.tres" type="TileSet" id=7]
@@ -11,11 +10,12 @@
 [ext_resource path="res://Objects/Items/Apple.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Objects/PowerUps/Balloon.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Objects/PowerUps/Wings.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Objects/CheckpointArea.tscn" type="PackedScene" id=12]
 
 [node name="beautiful_map" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource( 3 )]
-position = Vector2( 6690.74, 5244.8 )
+position = Vector2( 6594.92, 5222.68 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -50,9 +50,6 @@ collision_mask = 8
 format = 1
 tile_data = PoolIntArray( -7864043, 1610612736, 0, -7864026, 1610612736, 0, -6422181, 1610612736, 0, -6422093, 1610612736, 0, -6422077, 1610612736, 0, -3669600, 0, 0, -3669583, 0, 0, -458406, 1610612736, 0, -458388, 1610612736, 0, -458370, 1610612736, 0, -458352, 1610612736, 0, 2294125, 0, 0, 2294142, 0, 0, 2294159, 0, 0, 2294175, 0, 0, 2294229, 0, 0, 2556198, 1610612736, 0, 3801313, 0, 0, 3801330, 0, 0, 3997818, 1610612736, 0, 5243174, 0, 0, 5243191, 0, 0, 6160504, -1610612736, 0, 6422678, -1073741824, 0, 6750381, 0, 0, 8192208, 0, 0, 8454264, -1610612736, 0, 8585367, -1073741824, 0, 9372146, -1073741824, 0, 10158200, -1610612736, 0, 10223910, -1610612736, 0, 10420375, -1073741824, 0, 10420722, -1073741824, 0, 10617299, -1610612736, 0, 11206985, 0, 0, 11469217, 1610612736, 0, 11600370, -1073741824, 0, 11731372, -1073741824, 0, 12714191, 0, 0, 12714209, 0, 0, 12714244, 0, 0, 12911090, -1073741824, 0, 13042114, -1610612736, 0, 14156226, -1610612736, 0, 15008225, -1073741824, 0, 15663363, 0, 0, 15663398, 0, 0, 16253135, -1610612736, 0, 19726686, 0, 0, 20840894, -1073741824, 0, 21627244, 0, 0, 21627261, 0, 0 )
 
-[node name="NonGameplayInput" type="Node" parent="."]
-script = ExtResource( 4 )
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 autoplay = true
@@ -73,7 +70,7 @@ timeout = 10
 
 [node name="Balloon2" parent="Collectibles/PowerUps/Balloons" instance=ExtResource( 10 )]
 position = Vector2( 2207.97, 3014.04 )
-timeout = 3
+timeout = 4
 
 [node name="Wings" type="Node" parent="Collectibles/PowerUps"]
 
@@ -117,3 +114,20 @@ position = Vector2( 5338.31, 4640.35 )
 
 [node name="Apple9" parent="Collectibles/Items/Food/Apples" instance=ExtResource( 9 )]
 position = Vector2( 6110.4, 5123.62 )
+
+[node name="Checkpoints" type="Node" parent="."]
+
+[node name="CheckpointArea" parent="Checkpoints" instance=ExtResource( 12 )]
+position = Vector2( 995.141, 4805.93 )
+
+[node name="CheckpointArea2" parent="Checkpoints" instance=ExtResource( 12 )]
+position = Vector2( 6634.77, 5180.5 )
+
+[node name="CheckpointArea3" parent="Checkpoints" instance=ExtResource( 12 )]
+position = Vector2( 5115.48, 2630.38 )
+
+[node name="CheckpointArea4" parent="Checkpoints" instance=ExtResource( 12 )]
+position = Vector2( 2606.98, 1165.73 )
+
+[node name="CheckpointArea5" parent="Checkpoints" instance=ExtResource( 12 )]
+position = Vector2( 3217.23, -1741.43 )
