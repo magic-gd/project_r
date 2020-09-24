@@ -26,15 +26,14 @@ const GAME_MODE_DEFAULT = 1
 const GAME_MODE_BALLOON = 2
 const GAME_MODE_FLAPPY = 3
 
-var default_tex = preload("res://Assets/TempAssets/player_default.png")
+
 var default_tex_offset = Vector2(0, 0)
-var balloon_tex = preload("res://Assets/TempAssets/player_balloon.png")
 var balloon_tex_offset = Vector2(-2, 17)
-var wings_tex = preload("res://Assets/TempAssets/player_wings.png")
 var wings_tex_offset = Vector2(0, 0)
 
 
 export (int, 0, 1000) var inertia = 100
+export var overall_food_count = 100
 
 var direction = Vector2(DIRECTION_RIGHT, 1)
 var motion = Vector2()
@@ -55,6 +54,7 @@ var powerups_since_last_spawn : Array
 var game_mode = GAME_MODE_DEFAULT
 
 var timeout_label = null
+var progress_bar = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -62,6 +62,9 @@ func _ready():
 	add_to_group("player")
 	
 	timeout_label = get_parent().get_node("CanvasLayer/HUD/TimeoutLabel")
+	progress_bar = get_parent().get_node("CanvasLayer/HUD/ProgressBar")
+	
+	get_node("Hitbox").connect("body_entered", self, "_hit")
 	
 	add_powerup("default", 0, null) # this is bad
 
@@ -70,6 +73,10 @@ func _process(delta):
 		get_tree().reload_current_scene()
 	elif(Input.is_action_pressed("respawn_player")):
 		reset_state()
+	elif(Input.is_action_just_pressed("pause_menu")): # very inefficient stuff going on here
+		get_node("../CanvasLayer/PauseMenu").get_node(".").visible = not get_node("../CanvasLayer/PauseMenu").get_node(".").visible
+		get_tree().paused = get_node("../CanvasLayer/PauseMenu").get_node(".").visible
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -83,15 +90,15 @@ func _physics_process(delta):
 			# Add speed up to max, but never take away speed
 			motion.x = max(motion.x, min(motion.x+ACCELERATION, MAX_SPEED))
 			$Sprite.flip_h = false
-			spriteBuffer = "Run"
+			spriteBuffer = "move_right"
 		elif Input.is_action_pressed("move_left"):
 			idle = false
 			motion.x = min(motion.x, max(motion.x-ACCELERATION, -MAX_SPEED))
-			$Sprite.flip_h = true
-			spriteBuffer = "Run"
+			$Sprite.flip_h = false
+			spriteBuffer = "move_left"
 		else:
 			idle = true
-			spriteBuffer = "Idle"
+			spriteBuffer = "idle"
 		
 		if is_on_floor():
 			coyote_jumpbuffer = JUMP_BUFFER_SIZE
@@ -104,9 +111,9 @@ func _physics_process(delta):
 			coyote_jumpbuffer -= 1
 			
 			if motion.y < 0 or (jumpsUsed > 0 and motion.y < 200):
-				spriteBuffer = "Jump"
+				spriteBuffer = "jump"
 			else:
-				spriteBuffer = "Fall"
+				spriteBuffer = "fall"
 		
 	#	print(jumpbuffer, " ", motion.y)
 		if Input.is_action_just_pressed("jump"):
@@ -128,7 +135,7 @@ func _physics_process(delta):
 		else:
 			idle = true
 			
-		spriteBuffer = "Balloon"
+		spriteBuffer = "balloon"
 	
 	elif(game_mode == GAME_MODE_FLAPPY):
 		
@@ -139,15 +146,12 @@ func _physics_process(delta):
 			# Add speed up to max, but never take away speed
 			motion.x = max(motion.x, min(motion.x+ACCELERATION, MAX_SPEED))
 			$Sprite.flip_h = false
-			spriteBuffer = "Run"
 		elif Input.is_action_pressed("move_left"):
 			idle = false
 			motion.x = min(motion.x, max(motion.x-ACCELERATION, -MAX_SPEED))
 			$Sprite.flip_h = true
-			spriteBuffer = "Run"
 		else:
 			idle = true
-			spriteBuffer = "Idle"
 			
 		if is_on_floor():
 			if idle:
@@ -159,10 +163,10 @@ func _physics_process(delta):
 		coyote_jumpbuffer = 0
 		jumpsUsed = 0
 		
-		if motion.y < 0 or (jumpsUsed > 0 and motion.y < 200):
-			spriteBuffer = "Jump"
+		if motion.y < 0:
+			spriteBuffer = "wings_up"
 		else:
-			spriteBuffer = "Fall"
+			spriteBuffer = "wings_down"
 		
 	#	print(jumpbuffer, " ", motion.y)
 		if Input.is_action_just_pressed("jump"):
@@ -173,8 +177,8 @@ func _physics_process(delta):
 		var collision = get_slide_collision(index)
 		if collision.collider.is_in_group("movable_body"):
 			collision.collider.apply_central_impulse(-collision.normal * inertia)
-		elif collision.collider.is_in_group("obstacle"):
-			die()
+		#elif collision.collider.is_in_group("obstacle"):
+		#	die()
 
 	_playSprite(spriteBuffer)
 	
@@ -191,6 +195,10 @@ func _handle_powerups(delta):
 			timeout_label.text = String(int(remaining_time))
 		
 
+func _hit(body):
+	if(body.is_in_group("obstacle")):
+		die()
+
 func take_damage(source: Vector2, strength: int):
 	if $DamageAnimationPlayer.is_playing():
 		# i-frames
@@ -204,14 +212,7 @@ func take_damage(source: Vector2, strength: int):
 
 
 func die():
-	get_tree().reload_current_scene() # workaround
-	PlayerData.lives -= 1
-	if PlayerData.lives <= 0:
-#		LevelChanger.game_over()
-		pass
-	else:
-#		LevelChanger.restart_scene()
-		pass
+	reset_state()
 
 
 func knockback(source: Vector2, strength: int):
@@ -240,8 +241,7 @@ func _jump():
 
 
 func _playSprite(spriteName: String):
-#	$Sprite.play(spriteName)
-	pass
+	$Sprite.play(spriteName)
 
 
 func _setDebugMarker(pos: Vector2):
@@ -261,19 +261,16 @@ func add_powerup(type : String, timeout : int, powerup : Node):
 	
 	if(type == "default"):
 		game_mode = GAME_MODE_DEFAULT
-		$Sprite.texture = default_tex
 		$Sprite.transform.origin = default_tex_offset
 	elif(type == "balloon"):
 		game_mode = GAME_MODE_BALLOON
-		$Sprite.texture = balloon_tex
 		$Sprite.transform.origin = balloon_tex_offset
 		$BalloonCollisionShape2D2.disabled = false
-		$PickUpSoundPlayer.play()
+		$PowerUpSoundPlayer.play()
 	elif(type == "wings"):
 		game_mode = GAME_MODE_FLAPPY
-		$Sprite.texture = wings_tex
 		$Sprite.transform.origin = wings_tex_offset
-		$PickUpSoundPlayer.play()
+		$PowerUpSoundPlayer.play()
 		
 	if(timeout == 0):
 		timeout_label.text = ""
@@ -283,12 +280,16 @@ func add_powerup(type : String, timeout : int, powerup : Node):
 	powerup_timeout = timeout
 		
 
-func add_item(type : String, item : Node):
+func add_item(type : String, item : Node): # for now food only
+	
+	$ItemSoundPlayer.play()
+	
 	if(item != null):
 		items_since_last_spawn.append(item)
 	
 	if(type == "apple"):
 		food_count += 1
+		progress_bar.set_value((float(food_count) / float(overall_food_count)) * 100)
 		
 func save_state(spawn : Vector2):
 	var current_state = PlayerState.new()
@@ -303,6 +304,7 @@ func save_state(spawn : Vector2):
 
 func reset_state():
 	food_count = last_state.food_count
+	progress_bar.set_value((float(food_count) / float(overall_food_count)) * 100)
 	position = last_state.spawn
 	motion = Vector2(0, 0)
 	

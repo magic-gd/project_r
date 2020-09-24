@@ -8,8 +8,8 @@ func _ready():
 	
 
 func _pickup(body):
-	_after_pickup(body)
 	deactivate()
+	_after_pickup(body)
 
 func _after_pickup(body):
 	pass
@@ -17,7 +17,7 @@ func _after_pickup(body):
 func deactivate():
 	active = false
 	$Sprite.hide()
-	$Area2D/CollisionShape2D.disabled = true
+	get_node("Area2D/CollisionShape2D").set_deferred("disabled", true)
 	
 func _after_deactivate():
 	pass
@@ -25,7 +25,7 @@ func _after_deactivate():
 func reactivate():
 	active = true
 	$Sprite.show()
-	$Area2D/CollisionShape2D.disabled = false
+	get_node("Area2D/CollisionShape2D").set_deferred("disabled", false)
 	
 func _after_reactivate():
 	pass
