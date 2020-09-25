@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Obstacles/Obstacle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/TempAssets/spikes.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Obstacles/Spikes.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Spikes" instance=ExtResource( 1 )]
+scale = Vector2( 0.25, 0.25 )
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="Area2D" parent="." index="1"]
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2( 0, 55 )
+scale = Vector2( 25, 7 )
+shape = SubResource( 1 )

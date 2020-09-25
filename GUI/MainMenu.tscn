@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://GUI/medieval_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://GUI/PlayButton.gd" type="Script" id=2]
+[ext_resource path="res://Levels/Backgrounds/TowerBackground.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GUI/medieval_font_small.tres" type="DynamicFont" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.784314 )
+
+[node name="MainMenu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayButton" type="Button" parent="."]
+pause_mode = 2
+anchor_left = 0.3
+anchor_top = 0.1
+anchor_right = 0.7
+anchor_bottom = 0.1
+custom_fonts/font = ExtResource( 1 )
+text = "Play"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.3
+anchor_top = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.7
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="RichTextLabel" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "
+[center][u][b][font=Assets/Fonts/EagleLake-Regular.ttf]Controls[/font][/b][/u]
+ [color=#AAAAAA]jump [/color][color=#444444]<Space>[/color]
+ [color=#AAAAAA]move [/color][color=#444444]<Arrow Keys>[/color]
+ [color=#AAAAAA]reload checkpoint [/color][color=#444444]<R>[/color]
+ [color=#AAAAAA]restart level [/color][color=#444444]<z>[/color]
+ [color=#AAAAAA]pause menu [/color][color=#444444]<esc>[/color]
+[/center]
+
+"
+text = "
+Controls
+ jump <Space>
+ move <Arrow Keys>
+ reload checkpoint <R>
+ restart level <z>
+ pause menu <esc>
+
+
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="TowerBackground" parent="ParallaxBackground" instance=ExtResource( 3 )]

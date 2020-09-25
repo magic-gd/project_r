@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GUI/medieval_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://GUI/medieval_font_small.tres" type="DynamicFont" id=2]
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TimeoutLabel" type="RichTextLabel" parent="."]
+anchor_left = 0.01
+anchor_top = 0.1
+anchor_right = 0.2
+anchor_bottom = 0.2
+custom_fonts/normal_font = ExtResource( 1 )
+text = "Test"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 0.3
+anchor_bottom = 0.05
+margin_right = 4.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

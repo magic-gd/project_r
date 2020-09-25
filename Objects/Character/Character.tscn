@@ -1,21 +1,104 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Objects/Character/Character.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Assets/TempAssets/player_stand.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sounds/tri_crystal_1.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/TempAssets/player_move_right.png" type="Texture" id=4]
+[ext_resource path="res://Assets/TempAssets/player_jump.png" type="Texture" id=5]
+[ext_resource path="res://Assets/TempAssets/player_fall.png" type="Texture" id=6]
+[ext_resource path="res://Assets/TempAssets/player_move_left.png" type="Texture" id=7]
+[ext_resource path="res://Assets/TempAssets/wings_2.png" type="Texture" id=8]
+[ext_resource path="res://Assets/TempAssets/player_balloon.png" type="Texture" id=9]
+[ext_resource path="res://Assets/TempAssets/wings_1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/TempAssets/wings_0.png" type="Texture" id=11]
+[ext_resource path="res://Assets/TempAssets/wings_3.png" type="Texture" id=12]
+[ext_resource path="res://Assets/TempAssets/wings_4.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sounds/pling.wav" type="AudioStream" id=14]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 33.541
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "move_right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "wings_up",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "wings_down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "move_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "balloon",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
+
+[sub_resource type="CapsuleShape2D" id=4]
 
 [node name="Character" type="KinematicBody2D"]
+collision_layer = 4
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+frames = SubResource( 1 )
+animation = "wings_down"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 process_mode = 0
 smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 6, 6 )
+shape = SubResource( 2 )
+
+[node name="PowerUpSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="ItemSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="BalloonCollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( 37.3501, -69.1339 )
+scale = Vector2( 2, 2 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, -5 )
+scale = Vector2( 2.5, 1.7 )
+shape = SubResource( 4 )

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/jam_medival_1.ogg-02391ebb1c0509a6fa24ce38927ac40a.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/jam_medival_1.ogg"
+dest_files=[ "res://.import/jam_medival_1.ogg-02391ebb1c0509a6fa24ce38927ac40a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
