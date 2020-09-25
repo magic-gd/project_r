@@ -245,7 +245,7 @@ func _playSprite(spriteName: String):
 	if spriteName == "idle":
 		$FloatAnimationPlayer.play("float")
 	else:
-		$FloatAnimationPlayer.play("reset")
+		$FloatAnimationPlayer.stop()
 
 
 func _setDebugMarker(pos: Vector2):

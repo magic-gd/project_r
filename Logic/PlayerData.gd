@@ -10,6 +10,7 @@ const MAX_AMMO = 500
 var health: int = 3 setget set_health
 var lives: int = 10 setget set_lives
 var ammo: float = 0 setget set_ammo
+var food_delivered: int = 0
 
 
 func set_health(new_health: int) -> void:
