@@ -10,7 +10,7 @@ func activate():
 	if player.food_count > PlayerData.food_delivered:
 		deliver_food(PlayerData.food_delivered - player.food_count)
 	
-	if player.food_count > 100:
+	if player.food_count > 90:
 		king_happy()
 	else:
 		king_mad()
