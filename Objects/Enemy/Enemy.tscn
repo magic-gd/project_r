@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Objects/Enemy/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Enemy/AutoMover.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Character/player_green.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sounds/pling.wav" type="AudioStream" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "dmg_flash"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.490196, 0.490196, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[node name="Enemy" type="KinematicBody2D"]
+collision_layer = 2
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="ThrowPoint" type="Position2D" parent="."]
+
+[node name="AutoMover" parent="." instance=ExtResource( 2 )]
+
+[node name="BodyShape" type="CollisionPolygon2D" parent="."]
+
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="HurtShape" type="CollisionPolygon2D" parent="CollisionArea"]
+
+[node name="DamageAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/dmg_flash = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+pitch_scale = 0.49
+[connection signal="area_entered" from="CollisionArea" to="." method="_on_CollisionArea_area_entered"]

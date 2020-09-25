@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Objects/Enemy/Enemy.tscn" type="PackedScene" id=1]
+
+[node name="SmallEnemy" instance=ExtResource( 1 )]
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 0.2, 0.2 )
+
+[node name="BodyShape" parent="." index="3"]
+position = Vector2( 2.80269, -1.74355 )
+scale = Vector2( 0.950485, 0.953121 )
+polygon = PoolVector2Array( -26.0093, 23.744, -25.0892, 2.39696, -15.1517, -19.8703, 0.674545, -28.5195, 10.0599, -25.023, 20.9175, -6.9884, 22.7577, 20.0635, 18.8932, 28.5287, -23.617, 28.7127 )
+
+[node name="HurtShape" parent="CollisionArea" index="0"]
+polygon = PoolVector2Array( -23.6537, 24.6868, -23.4696, 1.86751, -14.4523, -20.3997, 1.18993, -29.9691, 11.8635, -27.9448, 23.6412, -11.5664, 27.5057, 6.28414, 25.2974, 27.8152, 18.1204, 26.159 )

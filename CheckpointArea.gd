@@ -7,4 +7,5 @@ func _ready():
 
 
 func _player_enter(body):
-	body.save_state(self.position)
+	if body.is_in_group("player"):
+		body.save_state(self.position)

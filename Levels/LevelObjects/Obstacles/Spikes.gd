@@ -1,4 +1,4 @@
-extends "res://Obstacle.gd"
+extends "res://Levels/LevelObjects/Obstacles/Obstacle.gd"
 
 
 func _ready():

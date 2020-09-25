@@ -6,14 +6,24 @@
 [node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 962.325 ]
+}
 
 [node name="TimeoutLabel" type="RichTextLabel" parent="."]
-anchor_left = 0.01
-anchor_top = 0.1
-anchor_right = 0.2
-anchor_bottom = 0.2
+anchor_left = 0.453
+anchor_top = 0.739
+anchor_right = 0.554
+anchor_bottom = 0.839
+margin_left = -0.759949
+margin_top = -0.119934
+margin_right = 0.319946
+margin_bottom = -0.119995
 custom_fonts/normal_font = ExtResource( 1 )
-text = "Test"
+bbcode_enabled = true
+bbcode_text = "[center]test[/center]"
+text = "test"
 __meta__ = {
 "_edit_use_anchors_": false
 }

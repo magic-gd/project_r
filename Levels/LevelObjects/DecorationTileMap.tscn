@@ -3,7 +3,6 @@
 [ext_resource path="res://Levels/TileSets/DecorationTileSet.tres" type="TileSet" id=1]
 
 [node name="DecorationTileMap" type="TileMap"]
-scale = Vector2( 0.2, 0.2 )
 z_index = -1
 tile_set = ExtResource( 1 )
 format = 1

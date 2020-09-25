@@ -13,7 +13,7 @@ const MAX_BALLOON_SPEED = -500
 const BALLOON_ACCELERATION = -10
 const MAX_SPEED = 350
 const ACCELERATION = 120
-const JUMP_HEIGHT = 700
+const JUMP_HEIGHT = 750
 const JUMP_BUFFER_SIZE = 5
 const AIRJUMP_COUNT = 1
 
@@ -53,7 +53,7 @@ var powerups_since_last_spawn : Array
 
 var game_mode = GAME_MODE_DEFAULT
 
-var timeout_label = null
+var timeout_label: RichTextLabel = null
 var progress_bar = null
 
 # Called when the node enters the scene tree for the first time.
@@ -192,7 +192,7 @@ func _handle_powerups(delta):
 		if(remaining_time < 0):
 			add_powerup("default", 0, null)
 		else:
-			timeout_label.text = String(int(remaining_time))
+			timeout_label.bbcode_text = "[center]"+String(int(remaining_time))+"[/center]"
 		
 
 func _hit(body):
@@ -242,6 +242,10 @@ func _jump():
 
 func _playSprite(spriteName: String):
 	$Sprite.play(spriteName)
+	if spriteName == "idle":
+		$FloatAnimationPlayer.play("float")
+	else:
+		$FloatAnimationPlayer.play("reset")
 
 
 func _setDebugMarker(pos: Vector2):
@@ -273,7 +277,7 @@ func add_powerup(type : String, timeout : int, powerup : Node):
 		$PowerUpSoundPlayer.play()
 		
 	if(timeout == 0):
-		timeout_label.text = ""
+		timeout_label.bbcode_text = "[center][/center]"
 		
 	powerup_time_since_pickup = 0
 		
