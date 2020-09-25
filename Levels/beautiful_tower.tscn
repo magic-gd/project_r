@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Levels/Backgrounds/TowerBackground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/TileSets/wall_chunk_tileset.tres" type="TileSet" id=2]
@@ -15,19 +15,21 @@
 [ext_resource path="res://Levels/LevelObjects/DecorationTileMap.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Objects/Enemy/SmallEnemy.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Levels/LevelObjects/Obstacles/spikex_tileset.tres" type="TileSet" id=15]
+[ext_resource path="res://Objects/Items/Chicken.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Objects/Items/Cake.tscn" type="PackedScene" id=17]
 
 [node name="beautiful_map" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource( 3 )]
 position = Vector2( 995.141, 4917.02 )
-overall_food_count = 64
+overall_food_count = 89
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="TowerBackground" parent="ParallaxBackground" instance=ExtResource( 1 )]
 
 [node name="PlatformTileMap2" parent="." instance=ExtResource( 7 )]
-tile_data = PoolIntArray( -37879665, 1, 0, -33357521, 1, 0, -33226477, 2, 0, -32636640, 0, 0, -31915718, 1, 0, -27393747, 0, 0, -27131655, 2, 0, -26541815, 0, 0, -25689863, 2, 0, -20512687, 0, 0, -20512676, 0, 0, -20512653, 0, 0, -20512642, 0, 0, -19922877, 0, 0, -19922788, 0, 0, -19464008, 0, 0, -14352347, 1, 0, -13238247, 2, 0, -11927511, 0, 0, 196659, 2, 0, 852038, 1, 0, 1376307, 2, 0, 12452100, 1, 0, 13566200, 0, 0, 14090347, 0, 0, 14221520, 1, 0, 14680312, 2, 0, 14811228, 0, 0, 15073476, 2, 0, 15139081, 0, 0, 15466626, 0, 0, 15794384, 1, 0 )
+tile_data = PoolIntArray( -37879665, 1, 0, -33357521, 1, 0, -33226477, 2, 0, -32636640, 0, 0, -31915718, 1, 0, -27393747, 0, 0, -27131655, 2, 0, -26541815, 0, 0, -25689863, 2, 0, -20512687, 0, 0, -20512676, 0, 0, -20512653, 0, 0, -20512642, 0, 0, -19922877, 0, 0, -19922788, 0, 0, -19464008, 0, 0, -14352347, 1, 0, -13238247, 2, 0, -11927511, 0, 0, -5963657, 1, 0, -4849560, 2, 0, -3735436, 1, 0, -2555800, 2, 0, 196659, 2, 0, 852038, 1, 0, 1376307, 2, 0, 12452100, 1, 0, 13566200, 0, 0, 14090347, 0, 0, 14221520, 1, 0, 14680312, 2, 0, 14811228, 0, 0, 15073476, 2, 0, 15139081, 0, 0, 15466626, 0, 0, 15794384, 1, 0 )
 
 [node name="FloorTileMap" type="TileMap" parent="."]
 position = Vector2( 0, 622 )
@@ -116,14 +118,14 @@ position = Vector2( 4848.4, -11064 )
 timeout = 2
 
 [node name="Balloon9" parent="Collectibles/PowerUps/Balloons" instance=ExtResource( 10 )]
-position = Vector2( 6952.97, -4377.41 )
+position = Vector2( 6942.29, -4227.91 )
 timeout = 3
 
 [node name="Wings" type="Node" parent="Collectibles/PowerUps"]
 
 [node name="Wings" parent="Collectibles/PowerUps/Wings" instance=ExtResource( 11 )]
 position = Vector2( 2616.64, 1163.76 )
-timeout = 60
+timeout = 25
 
 [node name="Wings2" parent="Collectibles/PowerUps/Wings" instance=ExtResource( 11 )]
 position = Vector2( 7200.51, 19.9347 )
@@ -135,7 +137,7 @@ timeout = 8
 
 [node name="Wings6" parent="Collectibles/PowerUps/Wings" instance=ExtResource( 11 )]
 position = Vector2( 3781.17, -3927.21 )
-timeout = 10
+timeout = 15
 
 [node name="Wings4" parent="Collectibles/PowerUps/Wings" instance=ExtResource( 11 )]
 position = Vector2( 7353.69, -5723.1 )
@@ -342,6 +344,85 @@ position = Vector2( 4854.63, -10799.4 )
 
 [node name="Apple64" parent="Collectibles/Items/Food/Apples" instance=ExtResource( 9 )]
 position = Vector2( 4454.43, -11886.8 )
+
+[node name="Cakes" type="Node" parent="Collectibles/Items/Food"]
+
+[node name="Cake" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 1567.98, 178.18 )
+
+[node name="Cake2" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 3180.16, 3012.98 )
+
+[node name="Cake3" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 4576.58, 4966.77 )
+
+[node name="Cake4" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 5679.34, 4397.41 )
+
+[node name="Cake5" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 6674.21, 3024.96 )
+
+[node name="Cake6" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 7601.25, 3094.81 )
+
+[node name="Cake7" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 5721.25, 862.81 )
+
+[node name="Cake8" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 4322.75, -944.785 )
+
+[node name="Cake9" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 3704.36, -925.758 )
+
+[node name="Cake10" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 3764.29, -4665.53 )
+
+[node name="Cake11" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 5921.85, -4953.21 )
+
+[node name="Cake12" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 3512.57, -6079.93 )
+
+[node name="Cake13" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 6192.11, -10677 )
+
+[node name="Cake14" parent="Collectibles/Items/Food/Cakes" instance=ExtResource( 17 )]
+position = Vector2( 3982.44, -11921.6 )
+
+[node name="Chickens" type="Node" parent="Collectibles/Items/Food"]
+
+[node name="Chicken" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 906.119, -2446.52 )
+
+[node name="Chicken2" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 4681.62, -1691.42 )
+
+[node name="Chicken3" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 6249.62, -595.423 )
+
+[node name="Chicken4" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 7609.62, 388.577 )
+
+[node name="Chicken5" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 4338, 1804.02 )
+
+[node name="Chicken6" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 3420.77, 4182.75 )
+
+[node name="Chicken7" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 7604.77, 4094.75 )
+
+[node name="Chicken8" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 5972.77, -3625.25 )
+
+[node name="Chicken9" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 5710.03, -9058.17 )
+
+[node name="Chicken10" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 2655.91, -6046.78 )
+
+[node name="Chicken11" parent="Collectibles/Items/Food/Chickens" instance=ExtResource( 16 )]
+position = Vector2( 1363.79, -9997.9 )
 
 [node name="Checkpoints" type="Node" parent="."]
 

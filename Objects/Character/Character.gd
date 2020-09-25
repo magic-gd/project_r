@@ -291,7 +291,7 @@ func add_item(type : String, item : Node): # for now food only
 	if(item != null):
 		items_since_last_spawn.append(item)
 	
-	if(type == "apple"):
+	if(type == "apple" || type == "cake" || type == "chicken"):
 		food_count += 1
 		progress_bar.set_value((float(food_count) / float(overall_food_count)) * 100)
 		
