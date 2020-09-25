@@ -76,4 +76,4 @@ position = Vector2( 1152, 432 )
 position = Vector2( 876.644, 299.342 )
 
 [node name="FoodTable" parent="." instance=ExtResource( 11 )]
-position = Vector2( 887.335, 559.484 )
+position = Vector2( 860.608, 564.829 )

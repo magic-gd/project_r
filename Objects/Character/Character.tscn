@@ -29,14 +29,14 @@ animations = [ {
 "name": "balloon",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "wings_down",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "move_left",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 12 ) ],
@@ -44,9 +44,9 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 9 ) ],
 "loop": true,
-"name": "move_right",
+"name": "move_left",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 13 ) ],
@@ -54,9 +54,9 @@ animations = [ {
 "name": "wings_up",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 13 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
-"name": "wings_down",
+"name": "move_right",
 "speed": 5.0
 } ]
 

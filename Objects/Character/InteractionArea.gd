@@ -13,7 +13,7 @@ func activate() -> void:
 	if _selection.size() == 0:
 		return
 	
-	_selection[0].activate()
+	_selection[0].get_parent().activate()
 
 
 
