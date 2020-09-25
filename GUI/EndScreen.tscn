@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://GUI/medieval_font_small.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Levels/Backgrounds/TowerBackground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUI/medieval_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://GUI/CreditsButton.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.784314 )
+
+[node name="EndScreen" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CreditsPanel" type="Panel" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/CreditsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]
+[u]Credits[/u]
+
+[color=#AAAAAA]Game Design[/color]
+[color=#444444]Sarah, David, Felix[/color]
+
+[color=#AAAAAA]Graphic Design[/color]
+[color=#444444]Sarah[/color]
+
+[color=#AAAAAA]Map Design[/color]
+[color=#444444]David, Felix[/color]
+
+[color=#AAAAAA]Sound Design[/color]
+[color=#444444]Felix[/color]
+
+[color=#AAAAAA]Programming[/color]
+[color=#444444]David, Felix[/color][/center]"
+text = "
+Credits
+
+Game Design
+Sarah, David, Felix
+
+Graphic Design
+Sarah
+
+Map Design
+David, Felix
+
+Sound Design
+Felix
+
+Programming
+David, Felix"
+
+[node name="VictoryPanel" type="Panel" parent="CanvasLayer"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.7
+margin_right = 40.0
+margin_bottom = 40.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/VictoryPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]
+[u]Victory[/u]
+
+[color=#AAAAAA]Congratulations!
+
+You managed to please the king.
+You are allowed to stay in his castle!
+
+Now enjoy spooking around and grab yourself
+some tasty chicken!
+[/color][/center]"
+text = "
+Victory
+
+Congratulations!
+
+You managed to please the king.
+You are allowed to stay in his castle!
+
+Now enjoy spooking around and grab yourself
+some tasty chicken!
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+[node name="TowerBackground" parent="CanvasLayer/ParallaxBackground" instance=ExtResource( 2 )]
+
+[node name="CreditsButton" type="Button" parent="CanvasLayer"]
+anchor_left = 0.1
+anchor_top = 0.8
+anchor_right = 0.9
+anchor_bottom = 0.9
+margin_right = 12.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 3 )
+text = "Credits"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
